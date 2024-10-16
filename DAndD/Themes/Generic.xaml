@@ -30,6 +30,18 @@
         </Setter>
     </Style>
 
+    <Style x:Key="FileDragDropZoneButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultDandDButtonStyle}">
+        <Setter Property="Height" Value="{Binding ButtonHeight, RelativeSource={RelativeSource AncestorType=local:FileDragDropZone}}" />
+        <Setter Property="Foreground" Value="{Binding ButtonTextBrush, RelativeSource={RelativeSource AncestorType=local:FileDragDropZone}}" />
+        <Setter Property="Background" Value="{Binding ButtonBackgroundBrush, RelativeSource={RelativeSource AncestorType=local:FileDragDropZone}}" />
+        <Setter Property="BorderBrush" Value="{Binding ButtonBorderBrush, RelativeSource={RelativeSource AncestorType=local:FileDragDropZone}}" />
+        <Setter Property="BorderThickness" Value="{Binding ButtonBorderThickness, RelativeSource={RelativeSource AncestorType=local:FileDragDropZone}}" />
+        <Setter Property="Padding" Value="{Binding BrowseButtonPadding, RelativeSource={RelativeSource AncestorType=local:FileDragDropZone}}" />
+        <Setter Property="FontSize" Value="{Binding FontSize, RelativeSource={RelativeSource AncestorType=local:FileDragDropZone}}" />
+        <Setter Property="FontFamily" Value="{Binding FontFamily, RelativeSource={RelativeSource AncestorType=local:FileDragDropZone}}" />
+        <Setter Property="FontWeight" Value="{Binding FontWeight, RelativeSource={RelativeSource AncestorType=local:FileDragDropZone}}" />
+    </Style>
+
     <converters:CornerRadiusToPathConverter x:Key="CornerRadiusToPathConverter"/>
 
     <Style TargetType="{x:Type local:FileDragDropZone}">
@@ -78,19 +90,12 @@
                                        Margin="{TemplateBinding OrTextMargin}"
                                        HorizontalAlignment="Center"/>
                             <Button x:Name="BrowseButton"
-                                    Content="Browse File"
-                                    Height="{TemplateBinding ButtonHeight}"
-                                    Foreground="{TemplateBinding ButtonTextBrush}"
-                                    Background="{TemplateBinding ButtonBackgroundBrush}"
-                                    BorderBrush="{TemplateBinding ButtonBorderBrush}"
-                                    BorderThickness="{TemplateBinding ButtonBorderThickness}"
-                                    Padding="{TemplateBinding BrowseButtonPadding}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    FontFamily="{TemplateBinding FontFamily}"
-                                    FontWeight="{TemplateBinding FontWeight}"
-                                    HorizontalAlignment="Stretch"
-                                    MaxWidth="200"
-                                    Style="{Binding ButtonStyle, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={Binding DefaultButtonStyle, RelativeSource={RelativeSource TemplatedParent}}}"/>
+                                Content="Browse File"
+                                HorizontalAlignment="Stretch"
+                                MaxWidth="200"
+                                Style="{TemplateBinding ButtonStyle}"
+                                Tag="{StaticResource FileDragDropZoneButtonStyle}">
+                            </Button>
 
                         </StackPanel>
                     </Grid>

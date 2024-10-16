@@ -1,6 +1,7 @@
 ﻿using System.Windows.Media;
 using System.Windows;
 using MahApps.Metro.IconPacks;
+using System.Windows.Controls;
 
 namespace DAndD
 {
@@ -285,22 +286,12 @@ namespace DAndD
 
         public static readonly DependencyProperty ButtonStyleProperty =
             DependencyProperty.Register("ButtonStyle", typeof(Style), typeof(FileDragDropZone),
-                new PropertyMetadata(null));
+                new PropertyMetadata(null, OnButtonStyleChanged));
 
         public Style ButtonStyle
         {
             get { return (Style)GetValue(ButtonStyleProperty); }
             set { SetValue(ButtonStyleProperty, value); }
-        }
-
-
-        public static readonly DependencyProperty DefaultButtonStyleProperty =
-       DependencyProperty.Register("DefaultButtonStyle", typeof(Style), typeof(FileDragDropZone), new PropertyMetadata(null));
-
-        public Style DefaultButtonStyle
-        {
-            get { return (Style)GetValue(DefaultButtonStyleProperty); }
-            set { SetValue(DefaultButtonStyleProperty, value); }
         }
     }
 }

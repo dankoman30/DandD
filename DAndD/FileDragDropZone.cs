@@ -18,6 +18,31 @@ namespace DAndD
             this.AllowDrop = true;
         }
 
+        private static void OnButtonStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = (FileDragDropZone)d;
+            control.UpdateButtonStyle();
+        }
+
+        private void UpdateButtonStyle()
+        {
+            if (Template != null)
+            {
+                var button = Template.FindName("BrowseButton", this) as Button;
+                if (button != null)
+                {
+                    if (ButtonStyle != null)
+                    {
+                        button.Style = ButtonStyle;
+                    }
+                    else
+                    {
+                        button.Style = button.Tag as Style ?? FindResource("DefaultDandDButtonStyle") as Style;
+                    }
+                }
+            }
+        }
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -31,6 +56,7 @@ namespace DAndD
             {
                 browseButton.Click += BrowseButton_Click;
             }
+            UpdateButtonStyle();
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
