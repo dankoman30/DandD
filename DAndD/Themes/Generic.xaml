@@ -1,0 +1,102 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:DAndD"
+    
+    xmlns:converters="clr-namespace:DAndD.Converters">
+
+
+    <Style x:Key="DefaultDandDButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" 
+                     Background="{TemplateBinding Background}"
+                     BorderBrush="{TemplateBinding BorderBrush}"
+                     BorderThickness="{TemplateBinding BorderThickness}"
+                     CornerRadius="{Binding ButtonCornerRadius, RelativeSource={RelativeSource AncestorType=local:FileDragDropZone}}"
+                     Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" TargetName="border" 
+                             Value="{Binding ButtonMouseOverBorderBrush, RelativeSource={RelativeSource AncestorType=local:FileDragDropZone}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <converters:CornerRadiusToPathConverter x:Key="CornerRadiusToPathConverter"/>
+
+    <Style TargetType="{x:Type local:FileDragDropZone}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:FileDragDropZone}">
+                    <Grid x:Name="MainGrid" 
+                          Width="{TemplateBinding ControlWidth}" 
+                          Height="{TemplateBinding ControlHeight}">
+
+                        <Border x:Name="DropZoneBorder"
+                                Background="{TemplateBinding BackgroundBrush}"
+                                CornerRadius="{TemplateBinding CornerRadius}">
+                        </Border>
+                        <Path Stroke="{TemplateBinding BorderBrush}" 
+                              StrokeThickness="{TemplateBinding BorderThickness}"
+                              StrokeDashArray="{TemplateBinding DashArray}">
+                            <Path.Data>
+                                <MultiBinding Converter="{StaticResource CornerRadiusToPathConverter}">
+                                    <Binding Path="CornerRadius" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ControlWidth" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ControlHeight" RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="Inset" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </Path.Data>
+                        </Path>
+
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+                            <iconPacks:PackIconMaterial Kind="{TemplateBinding IconKind}" 
+                                                        Width="{TemplateBinding IconWidth}" 
+                                                        Height="{TemplateBinding IconHeight}"
+                                                        Foreground="{TemplateBinding IconBrush}"
+                                                        HorizontalAlignment="Center"/>
+                            <TextBlock Text="Drag &amp; Drop to Upload File"
+                                       Foreground="{TemplateBinding TextBrush}"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       FontWeight="{TemplateBinding FontWeight}"
+                                       Margin="{TemplateBinding MainTextMargin}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="OR"
+                                       Foreground="{TemplateBinding TextBrush}"
+                                       FontSize="{TemplateBinding SmallFontSize}"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       FontWeight="{TemplateBinding FontWeight}"
+                                       Margin="{TemplateBinding OrTextMargin}"
+                                       HorizontalAlignment="Center"/>
+                            <Button x:Name="BrowseButton"
+                                    Content="Browse File"
+                                    Height="{TemplateBinding ButtonHeight}"
+                                    Foreground="{TemplateBinding ButtonTextBrush}"
+                                    Background="{TemplateBinding ButtonBackgroundBrush}"
+                                    BorderBrush="{TemplateBinding ButtonBorderBrush}"
+                                    BorderThickness="{TemplateBinding ButtonBorderThickness}"
+                                    Padding="{TemplateBinding BrowseButtonPadding}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    HorizontalAlignment="Stretch"
+                                    MaxWidth="200"
+                                    Style="{Binding ButtonStyle, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={Binding DefaultButtonStyle, RelativeSource={RelativeSource TemplatedParent}}}"/>
+
+                        </StackPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

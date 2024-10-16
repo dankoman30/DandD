@@ -1,0 +1,105 @@
+﻿<Window x:Class="DAndD.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DAndD"
+        xmlns:DAndD="clr-namespace:DAndD"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Background="gray">
+    
+    
+    
+    <Grid>
+        <DAndD:FileDragDropZone
+            ControlWidth="500"
+            ControlHeight="300"
+            Inset="10"
+            IconKind="CloudArrowUpOutline"
+            IconWidth="64"
+            IconHeight="64"
+            BackgroundBrush="LightBlue"
+            TextBrush="DarkBlue"
+            ButtonHeight="60"
+            ButtonBackgroundBrush="Navy"
+            ButtonTextBrush="White"
+            ButtonBorderThickness="1"
+            ButtonBorderBrush="White"
+            ButtonMouseOverBorderBrush="DarkBlue"
+            BorderBrush="Navy"
+            BorderThickness="3"
+            DashArray="6,2"
+            CornerRadius="25"
+            ButtonCornerRadius="20"
+            FontSize="20"
+            SmallFontSize="16"
+            FontFamily="Calibri"
+            FontWeight="Bold"
+            MainTextMargin="0,15,0,10"
+            OrTextMargin="0,10,0,15"
+            BrowseButtonPadding="30,15"
+            FileDropped="FileDragDropZone_FileDropped">
+            <DAndD:FileDragDropZone.ButtonStyle>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="Red"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Padding" Value="15,10"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                                    <ContentPresenter x:Name="contentPresenter" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" TargetName="border" Value="#2980b9"/>
+                                        <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#ecf0f1"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background" TargetName="border" Value="#2c3e50"/>
+                                        <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#bdc3c7"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Background" TargetName="border" Value="#95a5a6"/>
+                                        <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#7f8c8d"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)" 
+                                     To="1.1" Duration="0:0:0.1"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)" 
+                                     To="1.1" Duration="0:0:0.1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)" 
+                                     To="1" Duration="0:0:0.1"/>
+                                    <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)" 
+                                     To="1" Duration="0:0:0.1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DAndD:FileDragDropZone.ButtonStyle>
+        </DAndD:FileDragDropZone>
+    </Grid>
+</Window>
